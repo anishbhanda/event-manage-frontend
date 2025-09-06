@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -9,6 +9,10 @@ interface Event {
     location: string;
     organizer: string;
     image: string;
+}
+
+interface InterestProps {
+    title: string;
 }
 
 const events: Event[] = [
@@ -70,31 +74,31 @@ const events: Event[] = [
     },
 ];
 
-export default function Interest() {
+export default function Interest({ title }: InterestProps) {
     const [location, setLocation] = useState("new-york");
 
     return (
         <section className="mx-1">
-            <div className="mb-6 border-[1px] border-gray-300 p-7 font-semibold">
-                <p className="text-gray-600 pl-[201px]">
-                    Browsing events in{" "}
-                    <select
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        className="px-2 py-1 text-blue-600 font-medium underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                        <option value="new-york">New York City</option>
-                        <option value="london">London</option>
-                        <option value="paris">Paris</option>
-                        <option value="mumbai">Mumbai</option>
-                        <option value="singapore">Singapore</option>
-                    </select>
-                </p>
-            </div>
+            {title === "Based on your interests" && (
+                <div className="mb-6 border-[1px] border-gray-300 p-7 font-semibold">
+                    <p className="text-gray-600 pl-[201px]">
+                        Browsing events in{" "}
+                        <select
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            className="px-2 py-1 text-blue-600 font-medium underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        >
+                            <option value="new-york">New York City</option>
+                            <option value="london">London</option>
+                            <option value="paris">Paris</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="singapore">Singapore</option>
+                        </select>
+                    </p>
+                </div>
+            )}
             <div className="p-7 font-semibold">
-                <h2 className="text-lg font-semibold mb-6 ">
-                    Based on your interests
-                </h2>
+                <h2 className="text-lg font-semibold mb-6 ">{title}</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {events.map((event) => (
@@ -128,7 +132,6 @@ export default function Interest() {
                     ))}
                 </div>
 
-                {/* See more */}
                 <div className="flex justify-center mt-8">
                     <button className="px-6 py-2 border rounded-full text-sm hover:bg-gray-100">
                         See More
